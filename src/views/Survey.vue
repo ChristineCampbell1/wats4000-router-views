@@ -14,15 +14,18 @@
       <p>
         Q2: What languages interest you the most?
         <br />
-        <label v-for="language in languageOptions" :key="language">{{ language.text }}</label>
+        <label v-for="(language,index) in languageOptions" :key="index">
+          <input type="checkbox" v-model="q2" v-bind:value="language.value" />
+          {{ language.text }}
+        </label>
         <input type="checkbox" v-model="q2" />
       </p>
 
       <p>
         Q3: What other topics interest you?
         <br />
-        <label v-for="topic in topicOptions" :key="topic">{{ topic.text }}</label>
-        <input type="checkbox" v-model="q3" />
+        <label v-for="topic in topicOptions" :key="topic">
+          <input type="checkbox" v-model="q3" />{{ topic.text }}</label>
       </p>
 
       <p>
@@ -108,12 +111,14 @@ export default {
   },
   methods: {
     validateForm: function () {
-      if ((this.q1 !== '') &&
-        (this.q2.length > 0) &&
-        (this.q3.length > 0) &&
-        (this.q4 !== '') &&
-        (this.q5 !== '')) {
-      // Form is valid
+      if (
+        this.q1 !== '' &&
+        this.q2.length > 0 &&
+        this.q3.length > 0 &&
+        this.q4 !== '' &&
+        this.q5 !== ''
+      ) {
+        // Form is valid
         this.$router.push('secret')
       } else {
         this.showError = true
